@@ -1,5 +1,9 @@
-# Object file
-*.o
+# InteliiJ IDEA
+.idea
 
-# Ada Library Information
-*.ali
+# Gradle
+.gradle
+gradle
+
+# Build
+build
