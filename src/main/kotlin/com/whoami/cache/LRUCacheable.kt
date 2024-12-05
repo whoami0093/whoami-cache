@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory
 class LRUCacheable<K,V>(
     private val capacity: Int = 10
 ) : Cacheable<K, V> {
-    private val cache: LinkedHashMap<K, V> = LinkedHashMap(initialCapacity = capacity, loadFactor = 0.75f)
+    private val cache: LinkedHashMap<K, V> = LinkedHashMap(capacity, 0.75f)
 
     override fun get(key: K): V? = cache[key]
 
