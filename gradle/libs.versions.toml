@@ -1,0 +1,13 @@
+[versions]
+kotlin = "2.0.20"
+jreleaser = "1.15.0"
+slf4j = "2.0.16"
+
+[libraries]
+slf4j-api = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+
+[bundles]
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+jreleaser = { id = "org.jreleaser", version.ref = "jreleaser" }

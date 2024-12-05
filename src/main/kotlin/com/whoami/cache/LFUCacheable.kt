@@ -1,12 +1,12 @@
 package com.whoami.cache
 
 import org.slf4j.LoggerFactory
-import java.util.*
+import java.util.PriorityQueue
 import kotlin.collections.HashMap
 
 class LFUCacheable<K, V>(
     private val capacity: Int = 10
-): Cacheable<K, V> {
+) : Cacheable<K, V> {
     private val cache: MutableMap<K, CacheNode<K, V>> = HashMap()
     private val frequencyQueue: PriorityQueue<CacheNode<K, V>> = PriorityQueue()
 
@@ -51,8 +51,8 @@ class LFUCacheable<K, V>(
         frequencyQueue
             .sortedWith(compareBy({ it.frequency }, { it.insertionTime }))
             .forEach { node: CacheNode<K, V> ->
-            println("Key: ${node.key}, Value: ${node.value}, Frequency: ${node.frequency}")
-        }
+                println("Key: ${node.key}, Value: ${node.value}, Frequency: ${node.frequency}")
+            }
     }
 
     private fun putWithEviction(key: K, value: V) {
