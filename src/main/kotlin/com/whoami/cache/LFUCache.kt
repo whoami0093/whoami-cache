@@ -25,7 +25,7 @@ class LFUCache<K : Any, V : Any>(
     private var isLoaded: Boolean = false
 
     override suspend fun get(key: K): V? {
-        loaderDeferred.await()
+        if (!isLoaded) loaderDeferred.await()
         val node: CacheNode<K, V> = cache[key] ?: return null
         incrementFrequency(node)
 
@@ -33,14 +33,14 @@ class LFUCache<K : Any, V : Any>(
     }
 
     override suspend fun getAll(): List<V> {
-        loaderDeferred.await()
+        if (!isLoaded) loaderDeferred.await()
         return cache.values.map { it.value }.toList()
     }
 
     override fun getMap(): Map<K, V> = cache.values.associate { it.key to it.value }
 
     override suspend fun put(key: K, value: V) {
-        loaderDeferred.await()
+        if (!isLoaded) loaderDeferred.await()
         val existingNode: CacheNode<K, V>? = cache[key]
         existingNode?.let { node: CacheNode<K, V> ->
             node.value = value
