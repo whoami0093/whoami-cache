@@ -15,6 +15,8 @@ repositories {
 }
 
 dependencies {
+    // kotlin coroutines
+    implementation(libs.kotlinCoroutinesCore)
     // slf4j
     implementation(libs.slf4j.api)
 }

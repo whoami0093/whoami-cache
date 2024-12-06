@@ -7,23 +7,20 @@ class LRUCacheable<K,V>(
 ) : Cacheable<K, V> {
     private val cache: LinkedHashMap<K, V> = LinkedHashMap(capacity, 0.75f)
 
-    override fun get(key: K): V? = cache[key]
+    override suspend fun get(key: K): V? = cache[key]
 
-    override fun getAll(): List<V> = cache.values.toList()
+    override suspend fun getAll(): List<V> = cache.values.toList()
 
     override fun getMap(): Map<K, V> = cache.toMap()
 
-    override fun put(key: K, value: V) {
+    override suspend fun put(key: K, value: V) {
         cleanUp()
         cache[key] = value
     }
 
-    override fun putAll(from: Map<K, V>) {
-        cache.putAll(from)
-    }
-
-    override fun remove(key: K) {
+    override fun remove(key: K) : Boolean {
         cache.remove(key)
+        return true
     }
 
     private fun cleanUp() {
